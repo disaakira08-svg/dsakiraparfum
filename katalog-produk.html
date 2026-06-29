@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk | dsakira Unisex Perfume</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#9FA1FF',    /* Soft Purple */
+                        accent: '#C1EBE9',   /* Mint */
+                        dark: '#4A4466',     /* Dark Slate */
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="text-dark bg-white font-sans antialiased selection:bg-brand selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-accent/30" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="font-serif text-3xl font-bold text-dark tracking-tight">dsakira<span class="text-brand">.</span></a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html#beranda" class="text-dark hover:text-brand font-medium transition-colors">Beranda</a>
+                    <a href="#" class="text-brand font-semibold transition-colors border-b-2 border-brand pb-1">Katalog</a>
+                    <a href="index.html#tentang" class="text-dark hover:text-brand font-medium transition-colors">Tentang Kami</a>
+                    <a href="index.html#kontak" class="bg-dark text-accent px-6 py-2.5 rounded-full font-medium hover:bg-brand hover:text-dark transition-all duration-300 shadow-md">Hubungi Kami</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-accent/30 absolute w-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col text-center">
+                <a href="index.html#beranda" class="block px-3 py-3 text-dark font-medium hover:bg-accent/20 rounded-lg">Beranda</a>
+                <a href="#" class="block px-3 py-3 text-brand font-semibold bg-brand/10 rounded-lg">Katalog</a>
+                <a href="index.html#tentang" class="block px-3 py-3 text-dark font-medium hover:bg-accent/20 rounded-lg">Tentang Kami</a>
+                <a href="index.html#kontak" class="block mt-4 px-3 py-3 bg-dark text-accent font-medium rounded-lg">Hubungi Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="pt-32 pb-12 bg-accent/20 relative overflow-hidden">
+        <div class="absolute -top-12 -left-12 w-48 h-48 bg-brand/20 rounded-full blur-2xl"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="text-xs uppercase tracking-widest font-bold text-dark/60 bg-brand/20 px-3 py-1 rounded-full">Explore Collection</span>
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-dark mt-4 mb-2">Katalog Lengkap</h1>
+            <p class="text-dark/70 max-w-xl mx-auto text-sm md:text-base">Temukan harmoni aroma terbaik yang melampaui batas gender. Dibuat dengan bahan premium untuk karakter unik Anda.</p>
+        </div>
+    </header>
+
+    <!-- Search & Filter Controls -->
+    <section class="py-8 bg-white border-b border-accent/20 sticky top-20 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-4 justify-between items-center">
+                
+                <!-- Search Input -->
+                <div class="relative w-full lg:w-96">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-dark/40">
+                        <i class="ph ph-magnifying-glass text-xl"></i>
+                    </span>
+                    <input type="text" id="search-input" placeholder="Cari parfum dsakira..." class="w-full pl-10 pr-4 py-3 bg-light border border-accent/50 rounded-full focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white text-dark placeholder:text-dark/40 transition-all">
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 scrollbar-none justify-start lg:justify-end">
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-dark text-accent whitespace-nowrap" data-category="all">Semua</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-light text-dark hover:bg-brand/20 whitespace-nowrap" data-category="woody">Woody</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-light text-dark hover:bg-brand/20 whitespace-nowrap" data-category="citrus">Citrus</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-light text-dark hover:bg-brand/20 whitespace-nowrap" data-category="floral">Floral</button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-light text-dark hover:bg-brand/20 whitespace-nowrap" data-category="sweet">Sweet</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Catalog Grid -->
+    <main class="py-16 bg-light min-h-[60vh]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-16">
+                <i class="ph ph-smiley-sad text-6xl text-brand mb-4"></i>
+                <h3 class="text-2xl font-serif font-bold mb-2">Produk Tidak Ditemukan</h3>
+                <p class="text-dark/60">Cobalah menggunakan kata kunci pencarian atau filter yang berbeda.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+                
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="woody" data-name="midnight velvet">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&q=80&w=800" alt="Midnight Velvet" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-brand text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">Best Seller</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Woody & Musk</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Midnight Velvet</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Perpaduan hangat antara sandalwood, musk, dan sentuhan manis vanilla. Sempurna untuk malam yang mewah.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 249.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('midnight')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Midnight%20Velvet" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="citrus" data-name="ocean dawn">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&q=80&w=800" alt="Ocean Dawn" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Citrus & Aquatic</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Ocean Dawn</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Kesegaran laut yang dipadukan dengan bergamot dan white floral. Memberikan energi positif sepanjang hari.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 250.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('ocean')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Ocean%20Dawn" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="floral" data-name="urban bloom">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=800" alt="Urban Bloom" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Floral & Spicy</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Urban Bloom</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Kombinasi unik mawar hitam, pink pepper, dan patchouli. Menciptakan kesan misterius namun sangat memikat.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 239.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('urban')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Urban%20Bloom" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="woody" data-name="sage suede">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47714263f?auto=format&fit=crop&q=80&w=800" alt="Sage Suede" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Herbal & Leather</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Sage Suede</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Aroma herbal clary sage yang dipadukan dengan kemewahan leather dan cedarwood. Berkarakter tegas dan elegan.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 259.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('sage')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Sage%20Suede" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 5 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="sweet" data-name="vanilla sillage">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=800" alt="Vanilla Sillage" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-dark px-3 py-1 rounded-full text-xs font-bold shadow-sm">Hot</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Gourmand & Warm</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Vanilla Sillage</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Sensasi vanilla pod yang manis dipadukan dengan tonka bean panggang dan caramel. Hangat, candu, dan bertahan sangat lama.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 249.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('vanilla')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Vanilla%20Sillage" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-accent/30 flex flex-col" data-category="citrus" data-name="citrus whisper">
+                    <div class="aspect-[4/3] overflow-hidden bg-accent/20 relative">
+                        <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&q=80&w=800" alt="Citrus Whisper" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <p class="text-brand text-xs font-bold uppercase tracking-wider mb-1">Citrus & Green</p>
+                            <h3 class="text-2xl font-serif font-bold text-dark mb-2">Citrus Whisper</h3>
+                            <p class="text-dark/70 text-sm mb-6 line-clamp-2">Perasan jeruk mandarin yang cerah dibalut dengan green tea dan vetiver. Aroma bersih dan segar yang menenangkan.</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                                <span class="text-xl font-bold text-dark">Rp 219.000</span>
+                                <div class="flex gap-2">
+                                    <button onclick="openDetail('citrus')" class="px-3 py-2 bg-light text-dark rounded-full hover:bg-accent/40 text-sm font-semibold transition-colors">Detail</button>
+                                    <a href="https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20tertarik%20dengan%20Citrus%20Whisper" target="_blank" class="w-10 h-10 rounded-full bg-dark text-accent flex items-center justify-center hover:bg-brand hover:text-dark transition-all shadow-sm">
+                                        <i class="ph ph-shopping-bag text-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Detail Modal (Dynamic Content) -->
+    <div id="detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark/70 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-accent/30" onclick="event.stopPropagation()">
+            
+            <!-- Close button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-light flex items-center justify-center hover:bg-brand hover:text-white transition-all text-dark z-10 shadow-sm">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-8">
+                <!-- Modal Image Area -->
+                <div class="rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-full bg-accent/20">
+                    <img id="modal-img" src="" alt="Detail Perfume" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Modal Content Area -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span id="modal-tag" class="text-xs font-bold text-brand uppercase tracking-wider block mb-1">Tag</span>
+                        <h2 id="modal-title" class="text-3xl font-serif font-bold text-dark mb-4">Title</h2>
+                        <p id="modal-desc" class="text-dark/75 text-sm mb-6">Description goes here.</p>
+                        
+                        <!-- Fragrance Notes -->
+                        <div class="space-y-4 mb-6">
+                            <h4 class="font-bold text-sm text-dark uppercase tracking-wide">Fragrance Notes</h4>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="bg-light p-2 rounded-xl text-center">
+                                    <span class="block text-xs text-brand font-bold uppercase">Top</span>
+                                    <span id="modal-top-notes" class="text-[11px] text-dark font-medium leading-tight">Notes</span>
+                                </div>
+                                <div class="bg-light p-2 rounded-xl text-center">
+                                    <span class="block text-xs text-brand font-bold uppercase">Heart</span>
+                                    <span id="modal-heart-notes" class="text-[11px] text-dark font-medium leading-tight">Notes</span>
+                                </div>
+                                <div class="bg-light p-2 rounded-xl text-center">
+                                    <span class="block text-xs text-brand font-bold uppercase">Base</span>
+                                    <span id="modal-base-notes" class="text-[11px] text-dark font-medium leading-tight">Notes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Specs -->
+                        <div class="flex justify-between items-center bg-accent/10 p-3 rounded-2xl mb-6 text-xs text-dark/80 font-medium">
+                            <div class="flex items-center gap-1.5"><i class="ph ph-ruler text-base text-brand"></i> Size: 50 ml</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-hourglass-medium text-base text-brand"></i> Sillage: Strong</div>
+                            <div class="flex items-center gap-1.5"><i class="ph ph-clock text-base text-brand"></i> Long: 8-12 Hours</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-accent/20">
+                        <span id="modal-price" class="text-2xl font-bold text-dark">Price</span>
+                        <a id="modal-wa-btn" href="" target="_blank" class="px-6 py-3 bg-dark text-accent rounded-full hover:bg-brand hover:text-dark transition-all font-semibold flex items-center gap-2 shadow-md">
+                            <i class="ph ph-whatsapp-logo text-xl"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="font-serif text-3xl font-bold text-white tracking-tight mb-4 block">dsakira<span class="text-brand">.</span></a>
+                    <p class="text-light/60 max-w-sm mb-6">Mendefinisikan ulang batas wewangian dengan koleksi parfum unisex eksklusif yang tahan lama.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand hover:text-dark transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand hover:text-dark transition-colors"><i class="ph ph-tiktok-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand hover:text-dark transition-colors"><i class="ph ph-twitter-logo text-xl"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-accent">Tautan Cepat</h4>
+                    <ul class="space-y-2 text-light/70">
+                        <li><a href="index.html#beranda" class="hover:text-brand transition-colors">Beranda</a></li>
+                        <li><a href="#" class="hover:text-brand transition-colors">Katalog</a></li>
+                        <li><a href="index.html#tentang" class="hover:text-brand transition-colors">Tentang Kami</a></li>
+                        <li><a href="index.html#kontak" class="hover:text-brand transition-colors">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-accent">Kontak</h4>
+                    <ul class="space-y-3 text-light/70">
+                        <li class="flex items-start gap-3">
+                            <i class="ph ph-map-pin mt-1 text-brand"></i>
+                            <span>Jakarta, Indonesia</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph ph-envelope-simple text-brand"></i>
+                            <span>hello@dsakira.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-light/50 text-sm">© 2024 dsakira. Hak Cipta Dilindungi.</p>
+                <div class="flex gap-4 text-sm text-light/50">
+                    <a href="#" class="hover:text-white">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-white">Kebijakan Privasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar blur on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-sm');
+                nav.classList.replace('border-accent/30', 'border-accent/50');
+            } else {
+                nav.classList.remove('shadow-sm');
+                nav.classList.replace('border-accent/50', 'border-accent/30');
+            }
+        });
+
+        // --- PRODUCT FILTER & SEARCH ENGINE ---
+        const searchInput = document.getElementById('search-input');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        const emptyState = document.getElementById('empty-state');
+        
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        function filterProducts() {
+            let visibleCount = 0;
+            productCards.forEach(card => {
+                const categoryMatch = currentCategory === 'all' || card.getAttribute('data-category') === currentCategory;
+                const nameMatch = card.getAttribute('data-name').includes(searchQuery);
+
+                if (categoryMatch && nameMatch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        // Category Filter click handler
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Toggle active styles on buttons
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-dark', 'text-accent');
+                    b.classList.add('bg-light', 'text-dark');
+                });
+                btn.classList.add('bg-dark', 'text-accent');
+                btn.classList.remove('bg-light', 'text-dark');
+
+                currentCategory = btn.getAttribute('data-category');
+                filterProducts();
+            });
+        });
+
+        // Search inputs change handler
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            filterProducts();
+        });
+
+
+        // --- PRODUCT DETAILS MODAL LOGIC ---
+        const productData = {
+            midnight: {
+                title: "Midnight Velvet",
+                tag: "Woody & Musk",
+                desc: "Perpaduan sensual yang menangkap kehangatan suasana malam. Berawal dari kilauan aroma bergamot yang cerah, mengalir perlahan ke inti kehangatan amberwood, dan berlabuh pada dasar musk dan vanilla bourbon yang adiktif.",
+                top: "Bergamot, Pear",
+                heart: "Jasmine, Saffron, Amberwood",
+                base: "Sandalwood, Vanilla, Musk",
+                price: "Rp 249.000",
+                img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Midnight%20Velvet"
+            },
+            ocean: {
+                title: "Ocean Dawn",
+                tag: "Citrus & Aquatic",
+                desc: "Energi menyegarkan dari angin fajar di tepi samudra lepas. Dengan paduan kesegaran laut, semburat citrus segar yang cerah, serta keanggunan lembut mawar putih yang diselimuti kehangatan mineral kayu apung.",
+                top: "Sea Salt, Grapefruit",
+                heart: "White Rose, Sage, Aquatic Notes",
+                base: "Driftwood, Ambrette Seed",
+                price: "Rp 229.000",
+                img: "https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Ocean%20Dawn"
+            },
+            urban: {
+                title: "Urban Bloom",
+                tag: "Floral & Spicy",
+                desc: "Interpretasi kontemporer dari keindahan bunga liar yang tumbuh di tengah kota modern. Menggabungkan karakter kontras rempah pink pepper dengan kelembutan eksotis mawar hitam dan karakter misterius patchouli.",
+                top: "Pink Pepper, Cassis",
+                heart: "Black Rose, Peony",
+                base: "Patchouli, Amber, Cedarwood",
+                price: "Rp 239.000",
+                img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Urban%20Bloom"
+            },
+            sage: {
+                title: "Sage Suede",
+                tag: "Herbal & Leather",
+                desc: "Aroma maskulin yang diredam dengan sentuhan feminin segar untuk mencapai keseimbangan mutlak. Aroma clary sage liar berpadu anggun dengan kelembutan kulit suede premium dan kedalaman cedarwood.",
+                top: "Clary Sage, Lavender",
+                heart: "Suede Leather, Iris",
+                base: "Cedarwood, Vetiver, Tonka Bean",
+                price: "Rp 259.000",
+                img: "https://images.unsplash.com/photo-1594035910387-fea47714263f?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Sage%20Suede"
+            },
+            vanilla: {
+                title: "Vanilla Sillage",
+                tag: "Gourmand & Warm",
+                desc: "Momen kenyamanan termanis yang tidak dapat dilupakan. Dominasi vanilla pod madagaskar yang padat diselimuti dengan sentuhan caramel cair yang hangat serta kayu berharga untuk sillage yang sangat mengikat perhatian.",
+                top: "Almond, Coconut",
+                heart: "Vanilla Orchid, Caramel",
+                base: "Sandalwood, Vanilla Pod, Tonka Bean",
+                price: "Rp 249.000",
+                img: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Vanilla%20Sillage"
+            },
+            citrus: {
+                title: "Citrus Whisper",
+                tag: "Citrus & Green",
+                desc: "Bisikan hembusan angin pagi yang dingin menembus kebun jeruk Mandarin. Segarnya perasan jeruk yang renyah berpadu lembut dengan daun teh hijau basah yang memancarkan aura menenangkan, bersih, dan membumi.",
+                top: "Mandarin Orange, Lemon",
+                heart: "Green Tea, Neroli",
+                base: "Vetiver, Oakmoss, White Musk",
+                price: "Rp 219.000",
+                img: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&q=80&w=800",
+                waLink: "https://wa.me/6281234567890?text=Halo%20dsakira,%20saya%20ingin%20memesan%20Citrus%20Whisper"
+            }
+        };
+
+        const modal = document.getElementById('detail-modal');
+
+        function openDetail(key) {
+            const data = productData[key];
+            if (!data) return;
+
+            document.getElementById('modal-img').src = data.img;
+            document.getElementById('modal-img').alt = data.title;
+            document.getElementById('modal-tag').innerText = data.tag;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-top-notes').innerText = data.top;
+            document.getElementById('modal-heart-notes').innerText = data.heart;
+            document.getElementById('modal-base-notes').innerText = data.base;
+            document.getElementById('modal-price').innerText = data.price;
+            document.getElementById('modal-wa-btn').href = data.waLink;
+
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Close modal when clicking outside content area
+        modal.addEventListener('click', closeModal);
+    </script>
+</body>
+</html>
